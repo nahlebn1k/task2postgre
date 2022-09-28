@@ -2,7 +2,7 @@
 ```
 \ir createbase.sql
 ```
-2. Run `main.go`
+2. Run `main.go` from terminal
 ```
 go run main.go
 ```
