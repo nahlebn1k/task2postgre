@@ -1,4 +1,4 @@
-1. Create DB and table using `createbase.sql` script
+1. Create DB and table using `createbase.sql` script in SQL shell
 ```
 \ir createbase.sql
 ```
