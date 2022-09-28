@@ -8,3 +8,7 @@
   pass VARCHAR
 )
 ```
+3. Run `main.go`
+```
+go run main.go
+```
