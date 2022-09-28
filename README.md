@@ -1,4 +1,4 @@
-1. Create DB userdb_task
+1. Create DB `userdb_task`; user: `postgres`; pass: `postgres`
 2. Create table `users` using following SQL command:
 ```
  CREATE TABLE users
