@@ -2,7 +2,8 @@
 ```
 \ir createbase.sql
 ```
-3. Run `main.go`
+2. Run `main.go`
 ```
 go run main.go
 ```
+3. To test app go to `http://localhost:8000/get`
