@@ -1,4 +1,4 @@
-1. Create DB and table using `createbase.sql` script in SQL shell with next command
+1. Create DB and table using `createbase.sql` script in SQL shell with next command. user: `postgres` pass: `postgres` port: `5432`
 ```
 \ir createbase.sql
 ```
