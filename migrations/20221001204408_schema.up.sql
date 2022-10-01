@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS users
+(
+    username VARCHAR NOT NULL CONSTRAINT users_pk PRIMARY KEY,
+    login VARCHAR,
+    pass VARCHAR
+);
