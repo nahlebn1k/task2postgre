@@ -10,9 +10,9 @@ import (
 )
 
 const (
-	DB_USER     = "postgres"
-	DB_PASSWORD = "postgres"
-	DB_NAME     = "userdb_task"
+	DB_USER     = "admin"
+	DB_PASSWORD = "pass"
+	DB_NAME     = "testdb_task"
 )
 
 type User struct {
