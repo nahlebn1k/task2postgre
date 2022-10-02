@@ -1,9 +1,15 @@
-1. Create DB and table using `createbase.sql` script in SQL shell with next command. user: `postgres` pass: `postgres` port: `5432`
+1. Open project and run docker-compose command
 ```
-\ir createbase.sql
+docker-compose up --build
 ```
-2. Run `main.go` from terminal
+2. Use next commands for DB migrations  
+
+UP:
 ```
-go run main.go
+migrate -database postgresql://user:pass@localhost:5430/testdb_task?sslmode=disable -path ./migrations up
+```
+DOWN:
+```
+migrate -database postgresql://user:pass@localhost:5430/testdb_task?sslmode=disable -path ./migrations down
 ```
 3. To test app go to `http://localhost:8000/get`
