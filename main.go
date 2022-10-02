@@ -9,10 +9,15 @@ import (
 	"net/http"
 )
 
+//dbConnStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+//DB_HOST, DB_PORT, DB_USER, DB_PASSWORD, DB_NAME)
+
 const (
-	DB_USER     = "admin"
+	DB_USER     = "user"
 	DB_PASSWORD = "pass"
 	DB_NAME     = "testdb_task"
+	DB_PORT     = "5432"
+	DB_HOST     = "postgres"
 )
 
 type User struct {
@@ -22,7 +27,8 @@ type User struct {
 }
 
 func GetDB() *sql.DB {
-	dbConnStr := fmt.Sprintf("user=%s password=%s dbname=%s sslmode=disable", DB_USER, DB_PASSWORD, DB_NAME)
+	dbConnStr := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		DB_USER, DB_PASSWORD, DB_HOST, DB_PORT, DB_NAME)
 	db, err := sql.Open("postgres", dbConnStr)
 	if err != nil {
 		panic(err)

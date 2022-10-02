@@ -2,20 +2,28 @@ version: '3.1'
 
 services:
 
-  db:
+  postgres:
     image: postgres
     restart: always
     environment:
-      POSTGRES_USER: admin
+      POSTGRES_USER: user
       POSTGRES_PASSWORD: pass
       POSTGRES_DB: testdb_task
     ports:
-      - "5432:5432"
+      - "5430:5432"
+    networks:
+      - mynet
 
 
   app:
     build: .
     depends_on:
-      - db
+      - postgres
     ports:
       - "8000:8000"
+    networks:
+      - mynet
+
+networks:
+  mynet:
+    driver: bridge
