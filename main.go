@@ -2,9 +2,11 @@ package main
 
 import (
 	"database/sql"
+	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"
 	_ "github.com/lib/pq"
+	"github.com/rs/cors"
 	"log"
 	"net/http"
 )
@@ -21,9 +23,9 @@ const (
 )
 
 type User struct {
-	Name string
-	Mail string
-	Pass string
+	Name string `json:"name"`
+	Mail string `json:"mail"`
+	Pass string `json:"pass"`
 }
 
 func GetDB() *sql.DB {
@@ -41,16 +43,19 @@ func GetDB() *sql.DB {
 	return db
 }
 
+/*
 func GetForm(w http.ResponseWriter, r *http.Request) {
 	http.ServeFile(w, r, "index.html")
 }
+*/
 
 func PostDB(w http.ResponseWriter, r *http.Request) {
 	db := GetDB()
 	var user User
-	user.Name = r.FormValue("username")
-	user.Mail = r.FormValue("user-email")
-	user.Pass = r.FormValue("user-pass")
+	if err := json.NewDecoder(r.Body).Decode(&user); err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
 
 	_, err := db.Exec("INSERT INTO users(username, login, pass) VALUES ($1,$2,$3)", user.Name, user.Mail, user.Pass)
 	if err != nil {
@@ -64,9 +69,12 @@ func PostDB(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	router := mux.NewRouter()
-	router.HandleFunc("/get", GetForm).Methods("GET")
-	router.HandleFunc("/post", PostDB).Methods("POST")
-	err := http.ListenAndServe(":8000", router)
+	fs := http.FileServer(http.Dir("./static"))
+	//router.HandleFunc("/get", GetForm).Methods("GET")
+	router.HandleFunc("/post", PostDB).Methods("POST", "OPTIONS")
+	router.PathPrefix("/").Handler(fs)
+	handler := cors.Default().Handler(router)
+	err := http.ListenAndServe(":8000", handler)
 	if err != nil {
 		log.Fatal("Server Error!")
 	}
