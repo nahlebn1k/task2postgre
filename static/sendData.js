@@ -1,4 +1,5 @@
 function SendJSON() {
+    event.preventDefault();
     let name = document.querySelector('#username');
     let mail = document.querySelector('#user-email');
     let pass = document.querySelector('#user-pass');
@@ -7,16 +8,15 @@ function SendJSON() {
 
     fetch(url,{
         method: 'POST',
-        body: data,
         headers:{
-            'Content-type': 'application/json',
-        }
+            'Content-Type': 'application/json; charset=UTF-8'
+        },
+        body: data
 
-    }).then(function (response){
-        console.log("OK")
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
         return response.text()
     })
-
-
-
 }

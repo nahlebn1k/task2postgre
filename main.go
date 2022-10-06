@@ -56,15 +56,13 @@ func PostDB(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
-
 	_, err := db.Exec("INSERT INTO users(username, login, pass) VALUES ($1,$2,$3)", user.Name, user.Mail, user.Pass)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		panic(err)
 	}
+	w.Write([]byte("OK"))
 
-	w.WriteHeader(http.StatusOK)
-	w.Write([]byte("FINE!"))
 	defer db.Close()
 	fmt.Printf("Name: %v, Login: %v, Pass: %v \n", user.Name, user.Mail, user.Pass)
 }
