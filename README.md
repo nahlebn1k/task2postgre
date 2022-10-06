@@ -12,4 +12,4 @@ DOWN:
 ```
 migrate -database postgresql://user:pass@localhost:5430/testdb_task?sslmode=disable -path ./migrations down
 ```
-3. To test app go to `http://localhost:8000/get`
+3. To test app go to `http://localhost:8000`
